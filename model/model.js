@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const projectSchema = new mongoose.Schema({
     uid: String,
     pid: String,
+    humidLevel: Number,
     created_at: String,
     humidlevel: Number,
     AIWatering: Boolean,
