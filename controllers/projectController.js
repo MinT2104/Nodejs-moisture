@@ -3,9 +3,8 @@ const {projects} = require("../model/model")
 const projectController = {
     getAProject: async(req, res)=>{
         try {
-            const project = await projects.where({pid: req.params.pid})
+            const project = await projects.findOne({pid: req.params.pid})
             res.status(200).json(project)
-            console.log(project)
             } catch (error) {
             res.status(500).json(error)
             }
