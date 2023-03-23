@@ -18,6 +18,15 @@ const projectController = {
             res.status(500).json(error)
             }
     }, 
+    getAllUserProject: async(req, res)=>{
+        try {
+            const Allproject = await projects.where({uid: req.params.uid})
+            res.status(200).json(Allproject)
+            } catch (error) {
+            res.status(500).json(error)
+            }
+    }, 
+
     postProject: async(req,res)=>{
         try {
         const newProject = new projects(req.body)
