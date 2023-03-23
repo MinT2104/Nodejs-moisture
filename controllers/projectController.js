@@ -3,7 +3,7 @@ const {projects} = require("../model/model")
 const projectController = {
     getAProject: async(req, res)=>{
         try {
-            const project = await projects.where({uid: req.params.uid})
+            const project = await projects.where({pid: req.params.pid})
             res.status(200).json(project)
             console.log(project)
             } catch (error) {
@@ -29,7 +29,7 @@ const projectController = {
     },
     putAProject: async(req, res)=>{
         try {
-            const project = await projects.findOneAndUpdate({uid: req.params.uid},{$set:{...req.body}},{new: true})
+            const project = await projects.findOneAndUpdate({pid: req.params.pid},{$set:{...req.body}},{new: true})
             res.status(200).json(project)
             } catch (error) {
             res.status(500).json(error)
@@ -37,7 +37,7 @@ const projectController = {
     }, 
     deleteAProject: async(req, res)=>{
         try {
-            const project = await projects.deleteOne({uid: req.params.uid})
+            const project = await projects.deleteOne({pid: req.params.pid})
             res.status(200).json(project)
             } catch (error) {
             res.status(500).json(error)
