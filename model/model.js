@@ -32,7 +32,7 @@ const espSchema = new mongoose.Schema({
         {
             created_at: { type: Date, default: Date.now },
             entryId: Number,
-            field1: Number
+            field1: String
         }
     ]
 })
