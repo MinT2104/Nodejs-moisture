@@ -12,14 +12,14 @@ const espController = {
     },
     addFeed: async(req,res)=>{
         try {
-            const espEntry = await esps.where({pid: req.params.pid})
+            const espEntry = await esps.where({pid: req.query.pid})
             const entry =  espEntry[0].feeds.length
             console.log(entry)
             const newObject = {
                 entryId: espEntry[0].feeds.length +1,
                 field1: req.query.field1
             }
-            const espChosen = await  esps.findOneAndUpdate({pid: req.params.pid},{$push: {feeds: newObject}},{new:true})
+            const espChosen = await  esps.findOneAndUpdate({pid: req.query.pid},{$push: {feeds: newObject}},{new:true})
             res.status(200).json(espChosen)
         } catch (error) {
             res.status(500).json(error)
