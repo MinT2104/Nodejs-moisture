@@ -1,4 +1,4 @@
-const {projects} = require("../model/model")
+const {projects} = require("../model/projectModel")
 
 const projectController = {
     getAProject: async(req, res)=>{
@@ -19,6 +19,7 @@ const projectController = {
     }, 
     postProject: async(req,res)=>{
         try {
+        // const author = req.headers.authorization
         const newProject = new projects(req.body)
         const saveProject = await newProject.save();
         res.status(200).json(saveProject)

@@ -1,4 +1,4 @@
-const { pumps} = require("../model/model")
+const { pumps} = require("../model/projectModel")
 
 const pumpController = {
     addField: async(req,res)=>{
