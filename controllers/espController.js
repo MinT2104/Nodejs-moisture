@@ -15,7 +15,7 @@ const espController = {
             const espEntry = await esps.where({pid: req.query.pid})
             const newObject = {
                 entryId: espEntry[0].feeds.length +1,
-                field1: req.query.field1
+                field1: req.body.field1
             }
             const espChosen = await  esps.findOneAndUpdate({pid: req.query.pid},{$push: {feeds: newObject}},{new:true})
             res.status(200).json(espChosen)
