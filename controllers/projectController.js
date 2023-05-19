@@ -1,14 +1,27 @@
 const {projects} = require("../model/projectModel")
 
 const projectController = {
+    getMutliProject: async(req,res)=>{
+        try {
+            const reqPid  = req.body
+            const resData = []
+            for(i=0; i<reqPid.reqPid.length; i++){
+                const Project = await projects.find({pid: reqPid.reqPid[i]})
+                resData.push(Project[0])
+            }
+            res.status(200).json(resData)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
     getAProject: async(req, res)=>{
         try {
             const project = await projects.where({pid: req.params.pid})
-            if(project){
-            res.status(200).json(project)
-            }else{
+                if(project.length !== 0){
+                res.status(200).json(project)
+                }else{
                 res.status(404).json("This project is not existed")
-            }
+                }
             } catch (error) {
             res.status(500).json(error)
             }
@@ -33,7 +46,7 @@ const projectController = {
     },
     putAProject: async(req, res)=>{
         try {
-            const project = await projects.findOneAndUpdate({pid: req.params.pid},{$set:{...req.body}},{new: true})
+            const project = await projects.find({pid: req.params.pid},{$set:{...req.body}},{new: true})
             res.status(200).json(project)
             } catch (error) {
             res.status(500).json(error)

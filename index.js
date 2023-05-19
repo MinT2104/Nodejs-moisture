@@ -7,8 +7,7 @@ const morgan = require("morgan");
 const projectRoute = require("./routes/Project");
 const espRoute = require("./routes/Esp")
 const pumpRoute = require("./routes/Pump")
-const loginRoute = require("./routes/loginRoute")
-const signupRoute = require("./routes/signupRoute")
+const userRoute = require("./routes/userRoute")
 // const uuidv4 = require("uuidv4")
 
 const app = express();
@@ -26,8 +25,7 @@ mongoose.connect((process.env.DB_URL)).then(
 app.use("/api/v1/projects", projectRoute)
 app.use("/api/v1/esp_sensor", espRoute)
 app.use("/api/v1/pump", pumpRoute)
-app.use('/api/v1/register', signupRoute)
-app.use('/api/v1/login', loginRoute)
+app.use('/api/v1/user', userRoute)
 
 app.listen(8080,()=>{
     console.log("server is running...")
