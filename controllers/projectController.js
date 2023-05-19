@@ -4,7 +4,11 @@ const projectController = {
     getAProject: async(req, res)=>{
         try {
             const project = await projects.where({pid: req.params.pid})
+            if(project){
             res.status(200).json(project)
+            }else{
+                res.status(404).json("This project is not existed")
+            }
             } catch (error) {
             res.status(500).json(error)
             }
