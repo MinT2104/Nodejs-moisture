@@ -46,7 +46,7 @@ const projectController = {
     },
     putAProject: async(req, res)=>{
         try {
-            const project = await projects.find({pid: req.params.pid},{$set:{...req.body}},{new: true})
+            const project = await projects.findOneAndUpdate({pid: req.params.pid},{$set:{...req.body}},{new: true})
             res.status(200).json(project)
             } catch (error) {
             res.status(500).json(error)

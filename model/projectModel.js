@@ -9,6 +9,8 @@ const projectSchema = new mongoose.Schema({
     AIWatering: Boolean,
     autoWatering: Boolean,
     manualWatering: Boolean,
+    isPump:Boolean,
+    isEsp:Boolean,
     latitude: {
         type: String,
         required: true,

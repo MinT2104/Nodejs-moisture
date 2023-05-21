@@ -49,25 +49,24 @@ const userController = {
  login: async (req,res)=>{
     try {
         userReq = req.body
+        // const userExisted = await user.find({username: userReq.username})
+        // res.status(200).json(userExisted.length )
         if(userReq.username && userReq.password){
             const userExisted = await user.find({username: userReq.username})
-            const userResponse = {
-                username: userExisted[0]?.username,
-                uid: userExisted[0]?.uid,
-                email: userExisted[0]?.email,
-                multiProject: userExisted[0].multiProject,
-                displayName: userExisted[0]?.displayName,
-                photoURL: userExisted[0]?.photoURL,
-                phoneNumber: userExisted[0]?.phoneNumber,
-                accessToken: userExisted[0]?.accessToken,
-                isActive: userExisted[0]?.isActive,
-                updatedAt: userExisted[0]?.updatedAt,
-                createdAt: userExisted[0]?.createdAt,
-            }
-            if(userExisted.length === 0){
-                res.status(404).json("User not found")
-            }else{
-
+            if(userExisted.length === 1){
+                const userResponse = {
+                    username: userExisted[0].username,
+                    uid: userExisted[0].uid,
+                    email: userExisted[0].email,
+                    multiProject: userExisted[0].multiProject,
+                    displayName: userExisted[0].displayName,
+                    photoURL: userExisted[0].photoURL,
+                    phoneNumber: userExisted[0].phoneNumber,
+                    accessToken: userExisted[0].accessToken,
+                    isActive: userExisted[0].isActive,
+                    updatedAt: userExisted[0].updatedAt,
+                    createdAt: userExisted[0].createdAt,
+                }
              bcrypt.compare(userReq.password, userExisted[0].password)
                 .then((result) => {
                     const isSignup = result;
@@ -78,8 +77,12 @@ const userController = {
                     }
                 })
                 .catch((error)=>{
-                    res.status(500).json("sairoi")
+                    res.status(500).json(error)
                 })
+            }
+            else{
+            res.status(404).json("User not found")
+            
             }
 
         }
@@ -124,13 +127,22 @@ AddFirebaseUser: async(req,res)=>{
               res.status(500).json(error)
         }
 },
-updateUser: async(req,res)=>{
+updateUserPid: async(req,res)=>{
     try {
         const newPid = await  user.findOneAndUpdate({uid: req.body.uid},{$push: {multiProject: req.body.pid}},{new:true})
-        res.status(200).json(newPid)
+        res.status(200).send("Add successfully")
+    } catch (error) {
+        res.status(500).json(error)
+    }
+},
+delUserPid: async(req,res)=>{
+    try {
+        const newPid = await  user.findOneAndUpdate({uid: req.body.uid},{$pull: {multiProject: req.body.pid}},{new:true})
+        res.status(200).send("Delete successfully")
     } catch (error) {
         res.status(500).json(error)
     }
 }
 }
+
 module.exports = userController;
