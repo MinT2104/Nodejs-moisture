@@ -8,6 +8,7 @@ const projectRoute = require("./routes/Project");
 const espRoute = require("./routes/Esp")
 const pumpRoute = require("./routes/Pump")
 const userRoute = require("./routes/userRoute")
+const noti = require("./routes/Noti")
 // const uuidv4 = require("uuidv4")
 
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/v1/projects", projectRoute)
 app.use("/api/v1/esp_sensor", espRoute)
 app.use("/api/v1/pump", pumpRoute)
 app.use('/api/v1/user', userRoute)
+app.use('/api/v1/noti', noti)
 
 app.listen(8080,()=>{
     console.log("server is running...")

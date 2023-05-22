@@ -45,8 +45,16 @@ const pumpSchema = new mongoose.Schema({
     entryId: Number,
     value: Number
 })
+const NotiSchema = new mongoose.Schema({
+    pid:String,
+    uid:String,
+    projectName: String,
+    message: String,
+    created_at: { type: Date, default: Date.now }
+})
 const projects = mongoose.model("project", projectSchema)
 const esps = mongoose.model("esp", espSchema)
 const pumps = mongoose.model("pumps", pumpSchema)
+const noti = mongoose.model("noti", NotiSchema)
 
-module.exports = { projects,esps,pumps }
+module.exports = { projects,esps,pumps,noti }
