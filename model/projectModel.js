@@ -50,6 +50,7 @@ const NotiSchema = new mongoose.Schema({
     uid:String,
     projectName: String,
     message: String,
+    isRead: Boolean,
     created_at: { type: Date, default: Date.now }
 })
 const projects = mongoose.model("project", projectSchema)
