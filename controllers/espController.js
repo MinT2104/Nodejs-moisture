@@ -12,14 +12,18 @@ const espController = {
     },
         addFeed: async(req,res)=>{
         try {
-            const espEntry = await esps.where({pid: req.query.pid})
-            const newObject = {
-                entryId: espEntry[0].feeds.length +1,
-                field1: req.body.field1,
-                field2: req.body.field2
+            if(req.body.field1){
+                const espEntry = await esps.where({pid: req.query.pid})
+                const newObject = {
+                    entryId: espEntry[0].feeds.length +1,
+                    field1: req.body.field1,
+                    field2: req.body.field2
+                }
+                const espChosen = await  esps.findOneAndUpdate({pid: req.query.pid},{$push: {feeds: newObject}},{new:true})
+                res.status(200).json(espChosen)
+            }else{
+                res.status(401).json("Field1 is required")
             }
-            const espChosen = await  esps.findOneAndUpdate({pid: req.query.pid},{$push: {feeds: newObject}},{new:true})
-            res.status(200).json(espChosen)
         } catch (error) {
             res.status(500).json(error)
         }
