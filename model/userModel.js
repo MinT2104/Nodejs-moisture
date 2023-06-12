@@ -7,10 +7,14 @@ const userSChema = new mongoose.Schema({
     email: String,
     displayName: String,
     multiProject: Array,
+    address: String,
     photoURL: String,
     phoneNumber: String,
     accessToken:String,
     isActive: Boolean,
+    projectAmount:Number,
+    espAmount:Number,
+    pumpAmount:Number,
 })
 userSChema.plugin(require('mongoose-timestamp'));
 const user = mongoose.model('user', userSChema);

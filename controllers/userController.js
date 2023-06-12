@@ -66,6 +66,9 @@ const userController = {
                     isActive: userExisted[0].isActive,
                     updatedAt: userExisted[0].updatedAt,
                     createdAt: userExisted[0].createdAt,
+                    projectAmount:userExisted[0].projectAmount,
+                    espAmount:userExisted[0].espAmount,
+                    pumpAmount:userExisted[0].pumpAmount,
                 }
              bcrypt.compare(userReq.password, userExisted[0].password)
                 .then((result) => {
@@ -113,11 +116,15 @@ AddFirebaseUser: async(req,res)=>{
             const newUser = new user({
                 username: userProperties.username,
                 uid: userProperties.uid,
-                email: "",
+                email: userProperties?.email || "",
                 multiProject: userProperties.multiProject,
                 displayName: userProperties.username,
                 photoURL: userProperties.photoURL,
                 phoneNumber: "",
+                address: "",
+                projectAmount:0,
+                espAmount:0,
+                pumpAmount:0,
                 accessToken: userProperties.accessToken,
                 isActive: true
             })
@@ -135,6 +142,14 @@ updateUserPid: async(req,res)=>{
         res.status(500).json(error)
     }
 },
+updateUserprop: async(req, res)=>{
+    try {
+        const userProject = await user.findOneAndUpdate({uid: req.body.uid},{$set:{...req.body}},{new: true})
+        res.status(200).json(userProject)
+        } catch (error) {
+        res.status(500).json(error)
+        }
+}, 
 delUserPid: async(req,res)=>{
     try {
         const newPid = await  user.findOneAndUpdate({uid: req.body.uid},{$pull: {multiProject: req.body.pid}},{new:true})
