@@ -7,7 +7,8 @@ const rainSChema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now },
     feeds:[
         {
-            created_at: { type: Date, default: Date.now },
+            generated_date: String,
+            generated_time: String,
             entryId: Number,
             field1: String
         }

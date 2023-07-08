@@ -20,11 +20,13 @@ const rainController = {
     }, 
     addFeed: async(req,res)=>{
         try {
-            if(req.body.field1 !== undefined){
+            if(req.body.data !== undefined){
                 const espEntry = await rain.where({pid: req.body.pid})
                 const newObject = {
                     entryId: espEntry[0].feeds.length +1,
-                    field1: req.body.field1
+                    field1: req.body.data.field1,
+                    generated_date: req.body.data.generated_date,
+                    generated_time: req.body.data.generated_time
                 }
                 const rainChosen = await  rain.findOneAndUpdate({pid: req.body.pid},{$push: {feeds: newObject}},{new:true})
                 res.status(200).json(rainChosen)
@@ -50,6 +52,14 @@ const rainController = {
         } catch (error) {
             res.status(500).json(error)
         }
+    },
+    delAnItemFeed:async (req,res)=>{
+        try {
+            const newRain = await rain.findOneAndUpdate({espName: req.body.espName},{$pull: {feeds: {entryId: req.body.entryId}}},{new:true})
+            res.status(200).json(newRain)
+            } catch (error) {
+            res.status(500).json(error)
+            }
     }
 }
 
