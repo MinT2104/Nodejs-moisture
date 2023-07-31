@@ -11,6 +11,9 @@ const projectSchema = new mongoose.Schema({
   manualWatering: Boolean,
   isPump: Boolean,
   isEsp: Boolean,
+  rainFall: String,
+  depth_level_1: String,
+  depth_level_2: String,
   type: String,
   latitude: {
     type: String,
