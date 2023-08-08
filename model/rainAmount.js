@@ -5,15 +5,16 @@ const rainSChema = new mongoose.Schema({
   pid: String,
   espName: String,
   created_at: { type: Date, default: Date.now },
-  feeds: [
-    {
-      generated_date: String,
-      generated_time: String,
-      unit: String,
-      entryId: Number,
-      field1: String,
-    },
-  ],
 });
+const rainFeedSChema = new mongoose.Schema({
+  pid: String,
+  date_query: Date,
+  generated_date: Date,
+  generated_time: String,
+  unit: String,
+  field1: String,
+});
+
 const rain = mongoose.model("rain", rainSChema);
-module.exports = rain;
+const rainFeeds = mongoose.model("rainFeed", rainFeedSChema);
+module.exports = { rainFeeds, rain };

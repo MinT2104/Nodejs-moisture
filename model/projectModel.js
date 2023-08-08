@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const projectSchema = new mongoose.Schema({
   uid: String,
@@ -33,14 +34,13 @@ const espSchema = new mongoose.Schema({
   pid: String,
   espName: String,
   created_at: String,
-  feeds: [
-    {
-      created_at: { type: Date, default: Date.now },
-      entryId: Number,
-      field1: String,
-      field2: String,
-    },
-  ],
+});
+const espFeedSchema = new mongoose.Schema({
+  created_at: { type: Date, default: Date.now },
+  date_query: Date,
+  pid: String,
+  field1: String,
+  field2: String,
 });
 const pumpSchema = new mongoose.Schema({
   pid: String,
@@ -60,5 +60,6 @@ const projects = mongoose.model("project", projectSchema);
 const esps = mongoose.model("esp", espSchema);
 const pumps = mongoose.model("pumps", pumpSchema);
 const noti = mongoose.model("noti", NotiSchema);
+const espFeeds = mongoose.model("espFeeds", espFeedSchema);
 
-module.exports = { projects, esps, pumps, noti };
+module.exports = { projects, esps, pumps, noti, espFeeds };
