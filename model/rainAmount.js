@@ -10,7 +10,7 @@ const rainFeedSChema = new mongoose.Schema({
   pid: String,
   date_query: Date,
   generated_date: Date,
-  generated_time: String,
+  generated_time: Date,
   unit: String,
   field1: String,
 });
